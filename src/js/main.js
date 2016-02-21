@@ -29,6 +29,7 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.load.image('tiles', 'images/tileset.png');
+        this.load.image('cursor', 'images/editor_cursor.png');
     },
 
     create: function () {
