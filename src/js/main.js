@@ -30,6 +30,7 @@ var PreloaderScene = {
 
         this.load.image('tiles', 'images/tileset.png');
         this.load.image('cursor', 'images/editor_cursor.png');
+        this.load.image('overlay', 'images/black_overlay.png');
     },
 
     create: function () {

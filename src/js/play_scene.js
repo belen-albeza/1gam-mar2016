@@ -10,7 +10,7 @@ PlayScene.init = function () {
     this.keys = this.game.input.keyboard.createCursorKeys();
     this.keys.escape = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
     this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ESC);
-    this.keys.space = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+    this.keys.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 };
 
