@@ -44,4 +44,8 @@ LevelMap.prototype.layer = function () {
     return this.layers[0]; // TODO: support multiple layers
 };
 
+LevelMap.prototype.putTileAtXY = function (layer, tile, x, y) {
+    this.map.putTileWorldXY(tile, x, y, TSIZE, TSIZE, this.layers[layer]);
+};
+
 module.exports = LevelMap;

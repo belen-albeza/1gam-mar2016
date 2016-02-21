@@ -28,6 +28,13 @@ LevelEditor.prototype.update = function () {
         this.game.math.snapToFloor(this.game.input.worldX, TSIZE),
         this.game.math.snapToFloor(this.game.input.worldY, TSIZE)
     );
+
+    // paint a tile if mouse left button is pressed
+    if (!this.isHudEnabled && this.game.input.activePointer.isDown) {
+        // TODO: support for multiple layers
+        this.level.putTileAtXY(0, this.brush.index,
+            this.game.input.worldX, this.game.input.worldY);
+    }
 };
 
 LevelEditor.prototype.toggle = function (value) {
