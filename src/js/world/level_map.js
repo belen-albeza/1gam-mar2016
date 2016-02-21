@@ -26,7 +26,7 @@ function LevelMap(game, data) {
     data = data || {
         width: game.width / TSIZE,
         height: game.height / TSIZE,
-        layers: [[[0, 1, 1]]]
+        layers: [[]]
     };
 
     this.map = game.add.tilemap(null, TSIZE, TSIZE, data.width, data.height);

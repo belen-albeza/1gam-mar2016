@@ -23,4 +23,8 @@ PlayScene.create =  function () {
     this.levelEditor = new LevelEditor(this.editorUI, this.keys, this.level);
 };
 
+PlayScene.update = function () {
+   if (this.levelEditor.isEnabled) { this.levelEditor.update(); }
+};
+
 module.exports = PlayScene;

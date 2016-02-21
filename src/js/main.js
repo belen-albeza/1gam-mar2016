@@ -31,7 +31,10 @@ var PreloaderScene = {
         this.load.image('tiles', 'images/tileset.png');
         this.load.image('cursor', 'images/editor_cursor.png');
         this.load.image('overlay', 'images/black_overlay.png');
+
+        this.load.spritesheet('tiles:sheet', 'images/tileset.png', 16, 16);
     },
+
 
     create: function () {
         this.game.state.start('play');
