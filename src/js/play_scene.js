@@ -6,6 +6,9 @@ var LevelEditor = require('./world/level_editor.js');
 var PlayScene = {};
 
 PlayScene.init = function () {
+    // disable context menu when right clicking in the game
+    this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
+
     // register input from keyboard
     this.keys = this.game.input.keyboard.createCursorKeys();
     this.keys.escape = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);

@@ -28,12 +28,19 @@ LevelEditor.prototype.update = function () {
         this.game.math.snapToFloor(this.game.input.worldX, TSIZE),
         this.game.math.snapToFloor(this.game.input.worldY, TSIZE)
     );
+    this.brushCursor.tint = this.game.input.activePointer.rightButton.isDown
+        ? 0xff0000
+        : 0xffffff;
 
     // paint a tile if mouse left button is pressed
+    // erase a tile if mouse right button is pressed
     if (!this.isHudEnabled && this.game.input.activePointer.isDown) {
+        let tile = this.game.input.activePointer.leftButton.isDown
+            ? this.brush.index
+            : null;
         // TODO: support for multiple layers
-        this.level.putTileAtXY(0, this.brush.index,
-            this.game.input.worldX, this.game.input.worldY);
+        this.level.putTileAtXY(
+            0, tile, this.game.input.worldX, this.game.input.worldY);
     }
 };
 
