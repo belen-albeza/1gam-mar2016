@@ -24,7 +24,7 @@ function fillLayerData(layer, layerData) {
 
 function LevelMap(game, data) {
     data = data || {
-        width: game.width / TSIZE,
+        width: 2 * (game.width / TSIZE),
         height: game.height / TSIZE,
         layers: [[]]
     };
@@ -38,6 +38,8 @@ function LevelMap(game, data) {
         fillLayerData(layer, layerData);
         return layer;
     }.bind(this));
+
+    this.layer().resizeWorld();
 }
 
 LevelMap.prototype.layer = function () {

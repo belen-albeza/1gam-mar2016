@@ -30,4 +30,7 @@ PlayScene.update = function () {
    if (this.levelEditor.isEnabled) { this.levelEditor.update(); }
 };
 
+PlayScene.render = function () {
+};
+
 module.exports = PlayScene;

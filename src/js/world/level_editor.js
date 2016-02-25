@@ -1,10 +1,12 @@
 'use strict';
 
 const TSIZE = 16;
+const CAMERA_SPEED = 4;
 
 function LevelEditor(group, keys, level) {
     this.game = group.game;
     this.level = level;
+    this.keys = keys;
 
     this.rootGroup = group;
     this.rootGroup.fixedToCamera = true;
@@ -24,10 +26,15 @@ function LevelEditor(group, keys, level) {
 
 LevelEditor.prototype.update = function () {
     // mouse coordinates at game.input.{worldX,worldY}
+    let cursor = {
+        x: this.game.input.worldX - this.game.camera.x,
+        y: this.game.input.worldY - this.game.camera.y
+    };
+
+    // update tile brush cursor
     this.brushCursor.position.setTo(
-        this.game.math.snapToFloor(this.game.input.worldX, TSIZE),
-        this.game.math.snapToFloor(this.game.input.worldY, TSIZE)
-    );
+        this.game.math.snapToFloor(cursor.x, TSIZE),
+        this.game.math.snapToFloor(cursor.y,TSIZE));
     this.brushCursor.tint = this.game.input.activePointer.rightButton.isDown
         ? 0xff0000
         : 0xffffff;
@@ -42,6 +49,12 @@ LevelEditor.prototype.update = function () {
         this.level.putTileAtXY(
             0, tile, this.game.input.worldX, this.game.input.worldY);
     }
+
+    // scroll camera with cursor keys
+    if (this.keys.left.isDown) { this.game.camera.x -= CAMERA_SPEED; }
+    if (this.keys.right.isDown) { this.game.camera.x += CAMERA_SPEED; }
+    if (this.keys.up.isDown) { this.game.camera.y -= CAMERA_SPEED; }
+    if (this.keys.down.isDown) { this.game.camera.y += CAMERA_SPEED; }
 };
 
 LevelEditor.prototype.toggle = function (value) {
