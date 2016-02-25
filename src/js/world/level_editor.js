@@ -2,6 +2,10 @@
 
 const TSIZE = 16;
 const CAMERA_SPEED = 4;
+const PREFABS = {
+    0: 'main-chara',
+    1: 'goal'
+};
 
 function LevelEditor(group, keys, level) {
     this.game = group.game;
@@ -42,12 +46,10 @@ LevelEditor.prototype.update = function () {
     // paint a tile if mouse left button is pressed
     // erase a tile if mouse right button is pressed
     if (!this.isHudEnabled && this.game.input.activePointer.isDown) {
-        let tile = this.game.input.activePointer.leftButton.isDown
+        let element = this.game.input.activePointer.leftButton.isDown
             ? this.brush.index
             : null;
-        // TODO: support for multiple layers
-        this.level.putTileAtXY(
-            0, tile, this.game.input.worldX, this.game.input.worldY);
+        this._putInMap(element, this.game.input.worldX, this.game.input.worldY);
     }
 
     // scroll camera with cursor keys
@@ -63,6 +65,8 @@ LevelEditor.prototype.toggle = function (value) {
         : value;
     this.rootGroup.exists = this.isEnabled;
     this.rootGroup.visible = this.isEnabled;
+
+    this.level.togglePrefabs(this.isEnabled);
 };
 
 LevelEditor.prototype.toggleHud = function (value) {
@@ -77,6 +81,12 @@ LevelEditor.prototype.toggleHud = function (value) {
 LevelEditor.prototype.selectTile = function (index) {
     this.brush = { type: 'tiles', index: index };
     this.tilePaletteFrame.position.x = index * TSIZE;
+    this._updateBrush();
+};
+
+LevelEditor.prototype.selectPrefab = function (index) {
+    this.brush = { type: 'prefabs', index: index };
+    this.prefabPaletteFrame.position.x = index * TSIZE;
     this._updateBrush();
 };
 
@@ -110,11 +120,33 @@ LevelEditor.prototype._setupHud = function () {
             this.game.math.snapToFloor(pointer.x, TSIZE) / TSIZE);
         this.toggleHud(false);
     }, this);
+
+    this.prefabPalette = this.hud.create(0, this.game.height, 'prefabs');
+    this.prefabPalette.anchor.setTo(0, 1);
+    this.prefabPaletteFrame = this.hud.create(0, 0, 'cursor');
+    this.prefabPaletteFrame.anchor.setTo(0, 1);
+    this.prefabPalette.addChild(this.prefabPaletteFrame);
+
+    this.prefabPalette.inputEnabled = true;
+    this.prefabPalette.events.onInputUp.add(function (sprite, pointer) {
+       this.selectPrefab(
+           this.game.math.snapToFloor(pointer.x, TSIZE) / TSIZE);
+         this.toggleHud(false);
+    }, this);
 };
 
 LevelEditor.prototype._updateBrush = function () {
-    this.brushCursor.key = this.brush.type;
-    this.brushCursor.frame = this.brush.index;
+    this.brushCursor.loadTexture(`${this.brush.type}:sheet`, this.brush.index);
+};
+
+LevelEditor.prototype._putInMap = function (element, x, y) {
+    // TODO: support for multiple layers
+    if (this.brush.type === 'tiles') {
+        this.level.putTileAtXY(0, element, x, y);
+    }
+    else {
+        this.level.putPrefabAtXY(element, x, y);
+    }
 };
 
 module.exports = LevelEditor;

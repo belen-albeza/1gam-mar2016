@@ -29,10 +29,12 @@ var PreloaderScene = {
         this.load.setPreloadSprite(this.loadingBar);
 
         this.load.image('tiles', 'images/tileset.png');
+        this.load.image('prefabs', 'images/prefabs.png');
         this.load.image('cursor', 'images/editor_cursor.png');
         this.load.image('overlay', 'images/black_overlay.png');
 
         this.load.spritesheet('tiles:sheet', 'images/tileset.png', 16, 16);
+        this.load.spritesheet('prefabs:sheet', 'images/prefabs.png', 16, 16);
     },
 
 
