@@ -37,7 +37,6 @@ var PreloaderScene = {
         this.load.spritesheet('prefabs:sheet', 'images/prefabs.png', 16, 16);
     },
 
-
     create: function () {
         this.game.state.start('play');
     }

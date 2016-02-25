@@ -65,8 +65,10 @@ LevelMap.prototype.putTileAtXY = function (layer, tile, x, y) {
     this.map.putTileWorldXY(tile, x, y, TSIZE, TSIZE, this.layers[layer]);
 };
 
-LevelMap.prototype.putPrefabAtXY = function (index, x, y) {
-    this.map.putTileWorldXY(index + 2, x, y, TSIZE, TSIZE, this.prefabsLayer());
+LevelMap.prototype.putPrefabAtXY = function (prefab, x, y) {
+    this.map.putTileWorldXY(
+        prefab !== null ? prefab + 2 : null,
+        x, y, TSIZE, TSIZE, this.prefabsLayer());
 };
 
 LevelMap.prototype.togglePrefabs = function (value) {
