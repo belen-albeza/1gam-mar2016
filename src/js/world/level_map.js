@@ -78,4 +78,18 @@ LevelMap.prototype.togglePrefabs = function (value) {
     this.prefabsLayer().visible = value;
 };
 
+LevelMap.prototype.serialize = function () {
+    let data = {
+        width: this.layer().width,
+        height: this.layer().height,
+        layers: this.layers.map(function (l) {
+            return l.getTiles(0, 0, l.width, l.height).map(function (tile) {
+                return tile.index;
+            });
+        })
+    };
+
+    return data;
+};
+
 module.exports = LevelMap;

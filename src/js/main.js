@@ -32,6 +32,7 @@ var PreloaderScene = {
         this.load.image('prefabs', 'images/prefabs.png');
         this.load.image('cursor', 'images/editor_cursor.png');
         this.load.image('overlay', 'images/black_overlay.png');
+        this.load.image('btn:download', 'images/button_download.png');
 
         this.load.spritesheet('tiles:sheet', 'images/tileset.png', 16, 16);
         this.load.spritesheet('prefabs:sheet', 'images/prefabs.png', 16, 16);

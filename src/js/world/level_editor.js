@@ -90,6 +90,20 @@ LevelEditor.prototype.selectPrefab = function (index) {
     this._updateBrush();
 };
 
+LevelEditor.prototype.download = function () {
+    let data = JSON.stringify(this.level.serialize(), null, 2);
+    // create a temp <a> tag to download the file
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+      encodeURIComponent(data));
+    element.setAttribute('download', 'level.json');
+    // simulate a click on the link and remove the <a>
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+};
+
 //
 // private methods
 //
@@ -133,6 +147,11 @@ LevelEditor.prototype._setupHud = function () {
            this.game.math.snapToFloor(pointer.x, TSIZE) / TSIZE);
          this.toggleHud(false);
     }, this);
+
+    this.downloadButton = this.game.make.button(this.game.width, this.game.height,
+        'btn:download', this.download, this);
+    this.downloadButton.anchor.setTo(1, 1);
+    this.hud.add(this.downloadButton);
 };
 
 LevelEditor.prototype._updateBrush = function () {
@@ -148,5 +167,6 @@ LevelEditor.prototype._putInMap = function (element, x, y) {
         this.level.putPrefabAtXY(element, x, y);
     }
 };
+
 
 module.exports = LevelEditor;
